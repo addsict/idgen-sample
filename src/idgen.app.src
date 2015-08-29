@@ -1,0 +1,13 @@
+{application, idgen, [
+	{description, "ID Generator"},
+	{vsn, "1"},
+	{modules, []},
+	{registered, [idgen_sup]},
+	{applications, [
+		kernel,
+		stdlib,
+		cowboy
+	]},
+	{mod, {idgen_app, []}},
+	{env, []}
+]}.
