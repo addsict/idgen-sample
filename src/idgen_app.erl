@@ -9,7 +9,7 @@
 %% API.
 
 start(_Type, _Args) ->
-    GeneratorPid = spawn(id_generator, next_id, [1]),
+    GeneratorPid = spawn(id_generator, start, []),
     Dispatch = cowboy_router:compile([
         {'_', [
             {"/nextid", nextid_handler, [{generator, GeneratorPid}]}

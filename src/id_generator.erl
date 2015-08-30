@@ -1,13 +1,20 @@
 -module(id_generator).
--export([next_id/1]).
+-export([start/0]).
 
-next_id(Seq) ->
+start() ->
+    next_id(gen_time(), 0).
+
+next_id(LastTime, LastSeq) ->
     receive
         {From} ->
             Time = gen_time(),
+            Seq = case Time of
+                LastTime -> LastSeq + 1;
+                _ -> 1
+            end,
             Id = (Time bsl 10) + Seq,
             From ! {self(), Id},
-            next_id(Seq + 1);
+            next_id(Time, Seq);
         terminate ->
             ok
     end.
